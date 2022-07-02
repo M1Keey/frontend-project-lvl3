@@ -9,6 +9,13 @@ export default (link, feeds) => {
     schema.validateSync(link);
     return null;
   } catch (e) {
-    return e.message;
+    switch (e.message) {
+      case 'this must be a valid URL':
+        return 'invalidUrl';
+      case 'RSS is already exist':
+        return 'existedUrl';
+      default:
+        return e.message;
+    }
   }
 };
