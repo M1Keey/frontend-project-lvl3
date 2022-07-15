@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import axios from 'axios';
 import validateLink from './validateLink';
-import parseRSS from './RSS_parcer';
+import loadRSS from './RSS_loader';
+import updateRSS from './RSS_updater';
 
 const handleAddLink = (e, state, i18nextInstance) => {
   e.preventDefault();
@@ -14,20 +14,13 @@ const handleAddLink = (e, state, i18nextInstance) => {
   if (!error) {
     state.form.processState = 'pending';
 
-    const allOrigin = (url) => {
-      const result = new URL('/get', 'https://allorigins.hexlet.app');
-      result.searchParams.set('url', url);
-      result.searchParams.set('disableCache', true);
-      return result.toString();
-    };
-
-    axios.get(allOrigin(link))
-      .then((response) => parseRSS(link, response.data.contents))
+    loadRSS(link)
       .then((rss) => {
         const { feed, posts } = rss;
         state.feeds.unshift(feed);
         state.posts = [...posts, ...state.posts];
         state.form.processState = 'success';
+        updateRSS(link, state);
       })
       .catch((err) => {
         if (err.isAxiosError) {

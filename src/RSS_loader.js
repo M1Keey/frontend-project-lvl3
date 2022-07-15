@@ -8,7 +8,6 @@ const allOrigin = (url) => {
   return result.toString();
 };
 
-const loadRSS = (link) => {
-  axios.get(allOrigin(link));
-};
+const loadRSS = (link) => axios.get(allOrigin(link))
+  .then((response) => parseRSS(link, response.data.contents));
 export default loadRSS;
