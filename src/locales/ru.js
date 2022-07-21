@@ -1,5 +1,7 @@
 export default {
   translation: {
+    feeds: 'Фиды',
+    posts: 'Посты',
     errors: {
       invalidUrl: 'Ссылка должна быть валидным URL',
       existedUrl: 'RSS уже существует',
@@ -7,8 +9,6 @@ export default {
       requestErr: 'Ошибка сети (Проверьте ваше подключение к сети)',
       invalidRSS: 'Ресурс не содержит валидный RSS',
     },
-    feeds: 'Фиды',
-    posts: 'Посты',
     success: 'RSS успешно загружен',
     buttons: {
       view: 'Просмотр',
