@@ -1,7 +1,7 @@
 {
-  "name": "my-webpack-project",
+  "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "[![Actions Status](https://github.com/M1Keey/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/M1Keey/frontend-project-lvl3/actions)",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
