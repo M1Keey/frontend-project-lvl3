@@ -9,8 +9,11 @@ export default {
     },
     feeds: 'Фиды',
     posts: 'Посты',
+    success: 'RSS успешно загружен',
     buttons: {
       view: 'Просмотр',
+      close: 'Закрыть',
+      readArticle: 'Читать полностью',
     },
   },
 };

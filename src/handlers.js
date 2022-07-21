@@ -3,7 +3,7 @@ import validateLink from './validateLink';
 import loadRSS from './RSS_loader';
 import updateRSS from './RSS_updater';
 
-const handleAddLink = (e, state, i18nextInstance) => {
+export const handleAddLink = (e, state, i18nextInstance) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const link = formData.get('url').trim();
@@ -34,4 +34,34 @@ const handleAddLink = (e, state, i18nextInstance) => {
     state.form.processState = 'failed';
   }
 };
-export default handleAddLink;
+
+export const handleViewPost = (post) => {
+  document.body.classList.add('modal-open');
+  document.querySelector('.modal-title').textContent = post.title;
+  document.querySelector('.modal-body').innerHTML = post.description;
+  document.querySelector('.full-article').href = post.url;
+
+  const substrate = document.createElement('div');
+  substrate.classList.add('modal-backdrop', 'fade', 'show');
+  document.body.append(substrate);
+
+  const modal = document.querySelector('#modal');
+  modal.classList.add('show');
+  modal.style.display = 'block';
+  modal.setAttribute('role', 'dialog');
+  modal.removeAttribute('aria-hidden');
+  modal.setAttribute('aria-modal', 'true');
+};
+
+export const handleCloseModal = () => {
+  document.body.classList.remove('modal-open');
+
+  const substrate = document.querySelector('.modal-backdrop');
+  substrate.remove();
+
+  const modal = document.querySelector('#modal');
+  modal.classList.remove('show');
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.removeAttribute('role', 'aria-modal');
+};

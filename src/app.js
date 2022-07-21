@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { setLocale } from 'yup';
-import handleAddLink from './handlers';
+import { handleAddLink } from './handlers';
 import view from './view';
 import resources from './locales/index';
 
@@ -31,6 +31,7 @@ const app = () => {
     },
     feeds: [],
     posts: [],
+    viewedIds: [],
   };
 
   const watchedState = view(state, i18nextInstance);

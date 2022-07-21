@@ -9,8 +9,11 @@ export default {
     },
     feeds: 'Feeds',
     posts: 'Posts',
+    success: 'RSS uploaded successfully',
     buttons: {
       view: 'View',
+      close: 'Close',
+      readArticle: 'Read the article',
     },
   },
 };
