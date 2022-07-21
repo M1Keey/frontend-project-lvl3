@@ -1,5 +1,5 @@
 import axios from 'axios';
-import parseRSS from './RSS_parcer';
+import parseRSS from './RSS_parcer.js';
 
 const allOrigin = (url) => {
   const result = new URL('/get', 'https://allorigins.hexlet.app');

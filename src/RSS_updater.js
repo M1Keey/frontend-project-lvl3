@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import _ from 'lodash';
-import loadRSS from './RSS_loader';
+import loadRSS from './RSS_loader.js';
 
 const links = [];
 

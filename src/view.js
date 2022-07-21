@@ -1,5 +1,5 @@
 import onChange from 'on-change';
-import { handleCloseModal, handleViewPost } from './handlers';
+import { handleCloseModal, handleViewPost } from './handlers.js';
 
 const renderFeeds = (feeds, i18nextInstance) => {
   const feedsContainer = document.querySelector('.feeds');

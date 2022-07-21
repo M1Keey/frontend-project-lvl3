@@ -1,8 +1,8 @@
 import i18next from 'i18next';
 import { setLocale } from 'yup';
-import { handleAddLink } from './handlers';
-import view from './view';
-import resources from './locales/index';
+import { handleAddLink } from './handlers.js';
+import view from './view.js';
+import resources from './locales/index.js';
 
 const app = () => {
   const defaultLanguage = 'ru';
