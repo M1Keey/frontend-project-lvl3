@@ -4,4 +4,8 @@
 
 ---
 
-[RSS reader](https://frontend-project-lvl3-seven-topaz.vercel.app/) - is a service for aggregating RSS feeds, with the help of which it is convenient to read a variety of sources, for example, blogs. It allows you to add an unlimited number of RSS feeds, updates them itself and adds new entries to the general stream.
+RSS is a specialized format designed to describe news feeds, announcements of articles and other materials. This is the easiest way for websites (usually blogs) to enable users to subscribe to changes. For this purpose, special services called RSS aggregators are used. These services are able to poll RSS feeds of sites for the presence of new posts and show them in a convenient way, noting what they read and so on.
+
+RSS reader - is a service for aggregating RSS feeds, with the help of which it is convenient to read a variety of sources, for example, blogs. It allows you to add an unlimited number of RSS feeds, updates them itself and adds new entries to the general stream.
+
+[Click here to try it](https://frontend-project-lvl3-seven-topaz.vercel.app/)

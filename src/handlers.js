@@ -34,33 +34,13 @@ export const handleAddLink = (e, state, i18nextInstance) => {
   }
 };
 
-export const handleViewPost = (post) => {
-  document.body.classList.add('modal-open');
-  document.querySelector('.modal-title').textContent = post.title;
-  document.querySelector('.modal-body').innerHTML = post.description;
-  document.querySelector('.full-article').href = post.url;
-
-  const substrate = document.createElement('div');
-  substrate.classList.add('modal-backdrop', 'fade', 'show');
-  document.body.append(substrate);
-
-  const modal = document.querySelector('#modal');
-  modal.classList.add('show');
-  modal.style.display = 'block';
-  modal.setAttribute('role', 'dialog');
-  modal.removeAttribute('aria-hidden');
-  modal.setAttribute('aria-modal', 'true');
+export const handleViewPost = (post, state) => {
+  state.activePostId = post.id;
+  if (!state.viewedIds.includes(post.id)) {
+    state.viewedIds.push(post.id);
+  }
 };
 
-export const handleCloseModal = () => {
-  document.body.classList.remove('modal-open');
-
-  const substrate = document.querySelector('.modal-backdrop');
-  substrate.remove();
-
-  const modal = document.querySelector('#modal');
-  modal.classList.remove('show');
-  modal.style.display = 'none';
-  modal.setAttribute('aria-hidden', 'true');
-  modal.removeAttribute('role', 'aria-modal');
+export const handleCloseModal = (state) => {
+  state.activePostId = null;
 };

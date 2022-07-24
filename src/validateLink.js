@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 
-export default (link, feeds) => {
-  const urls = feeds.map(({ url }) => url);
+export default (url, feeds) => {
+  const urls = feeds.map(({ link }) => link);
 
   const schema = yup.string().url().notOneOf(urls);
 
   try {
-    schema.validateSync(link);
+    schema.validateSync(url);
     return null;
   } catch (e) {
     return e.message;

@@ -11,7 +11,6 @@ const renderFeeds = (feeds, i18nextInstance) => {
   feeds.forEach((feed) => {
     const li = document.createElement('li');
     li.classList.add('list-group-item');
-    li.dataset.id = feed.id;
 
     const feedTitle = document.createElement('h3');
     feedTitle.textContent = feed.title;
@@ -24,7 +23,7 @@ const renderFeeds = (feeds, i18nextInstance) => {
   feedsContainer.append(ul);
 };
 
-const renderPosts = (state, posts, i18nextInstance) => {
+const renderPosts = (state, posts, viewPostHandler, i18nextInstance) => {
   const postsContainer = document.querySelector('.posts');
   postsContainer.innerHTML = `<h2>${i18nextInstance.t('posts')}</h2>`;
 
@@ -40,7 +39,7 @@ const renderPosts = (state, posts, i18nextInstance) => {
     const postTitle = document.createElement('a');
     postTitle.dataset.id = post.id;
     postTitle.textContent = post.title;
-    postTitle.setAttribute('href', post.url);
+    postTitle.setAttribute('href', post.link);
     postTitle.setAttribute('target', '_blank');
     postTitle.classList.add(isViewed ? ('fw-normal', 'link-secondary') : 'fw-bold');
 
@@ -49,19 +48,9 @@ const renderPosts = (state, posts, i18nextInstance) => {
     postViewButton.setAttribute('type', 'button');
     postViewButton.classList.add('btn', 'btn-primary', 'btn-sm');
 
-    postTitle.addEventListener('click', () => {
-      if (!isViewed) {
-        state.viewedIds.push(post.id);
-      }
-    });
+    postTitle.addEventListener('click', () => viewPostHandler(post, state));
 
-    postViewButton.addEventListener('click', () => {
-      if (!isViewed) {
-        state.viewedIds.push(post.id);
-      }
-
-      handleViewPost(post);
-    });
+    postViewButton.addEventListener('click', () => viewPostHandler(post, state));
 
     li.append(postTitle, postViewButton);
     ul.append(li);
@@ -69,21 +58,53 @@ const renderPosts = (state, posts, i18nextInstance) => {
   postsContainer.append(ul);
 };
 
+const renderModal = (state, closeModalHandler, i18nextInstance) => {
+  const { title, description, link } = state.posts.find((post) => post.id === state.activePostId);
+
+  const fullArticleButton = document.querySelector('.full-article');
+  fullArticleButton.textContent = i18nextInstance.t('buttons.readArticle');
+
+  document.body.classList.add('modal-open');
+  document.querySelector('.modal-title').textContent = title;
+  document.querySelector('.modal-body').innerHTML = description;
+  document.querySelector('.full-article').href = link;
+
+  const substrate = document.createElement('div');
+  substrate.classList.add('modal-backdrop', 'fade', 'show');
+  document.body.append(substrate);
+
+  const modal = document.querySelector('#modal');
+  modal.classList.add('show');
+  modal.style.display = 'block';
+  modal.setAttribute('role', 'dialog');
+  modal.removeAttribute('aria-hidden');
+  modal.setAttribute('aria-modal', 'true');
+
+  const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+  closeButtons[1].textContent = i18nextInstance.t('buttons.close');
+  closeButtons.forEach((closeButton) => {
+    closeButton.addEventListener('click', () => closeModalHandler(state));
+  });
+};
+
+const renderModalClosed = () => {
+  document.body.classList.remove('modal-open');
+
+  const substrate = document.querySelector('.modal-backdrop');
+  substrate.remove();
+
+  const modal = document.querySelector('#modal');
+  modal.classList.remove('show');
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.removeAttribute('role', 'aria-modal');
+};
+
 const render = (state, i18nextInstance) => {
   if (state.feeds.length > 0) {
     renderFeeds(state.feeds, i18nextInstance);
-    renderPosts(state, state.posts, i18nextInstance);
+    renderPosts(state, state.posts, handleViewPost, i18nextInstance);
   }
-
-  const fullArticleButton = document.querySelector('.full-article');
-  const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
-
-  fullArticleButton.textContent = i18nextInstance.t('buttons.readArticle');
-  closeButtons[1].textContent = i18nextInstance.t('buttons.close');
-
-  closeButtons.forEach((closeButton) => {
-    closeButton.addEventListener('click', handleCloseModal);
-  });
 };
 
 const toggleForm = (status) => {
@@ -140,6 +161,16 @@ export default (state, i18nextInstance) => {
       } else {
         clearFeedback();
       }
+    } else if (path === 'activePostId') {
+      if (value) {
+        renderModal(watchedState, handleCloseModal, i18nextInstance);
+      } else {
+        renderModalClosed(watchedState);
+      }
+    } else if (path === 'posts') {
+      renderPosts(watchedState, state.posts, handleViewPost, i18nextInstance);
+    } else if (path === 'feeds') {
+      renderFeeds(state.feeds, i18nextInstance);
     } else {
       render(watchedState, i18nextInstance);
     }

@@ -10,7 +10,7 @@ const updateRSS = (state) => {
     .then((results) => {
       const loadedPosts = results.flatMap(({ posts }) => posts);
       const allPosts = _.union(loadedPosts, state.posts);
-      const newPosts = _.differenceBy(allPosts, state.posts, 'url');
+      const newPosts = _.differenceBy(allPosts, state.posts, 'link');
 
       if (newPosts.length > 0) {
         state.posts = [...newPosts, ...state.posts];
