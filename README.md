@@ -8,4 +8,4 @@ RSS is a specialized format designed to describe news feeds, announcements of ar
 
 RSS reader - is a service for aggregating RSS feeds, with the help of which it is convenient to read a variety of sources, for example, blogs. It allows you to add an unlimited number of RSS feeds, updates them itself and adds new entries to the general stream.
 
-[Click here to try it](https://frontend-project-lvl3-seven-topaz.vercel.app/){:target="\_blank"}
+[Click here to try it](https://frontend-project-lvl3-seven-topaz.vercel.app/)
