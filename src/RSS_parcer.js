@@ -2,7 +2,10 @@ export default (feedLink, data) => {
   try {
     const parser = new DOMParser();
     const parcedData = parser.parseFromString(data, 'text/xml');
-
+    const parseError = parcedData.querySelector('parsererror');
+    if (parseError) {
+      throw new Error(parseError.textContent);
+    }
     const result = {
       feed: null,
       posts: [],
@@ -31,7 +34,8 @@ export default (feedLink, data) => {
       link: feedLink,
     };
     return result;
-  } catch {
-    throw new Error('errorParsing');
+  } catch (e) {
+    console.log(e);
+    return null;
   }
 };

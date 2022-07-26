@@ -2,9 +2,7 @@
 import _ from 'lodash';
 import loadRSS from './RSS_loader.js';
 
-const links = [];
-
-const updateRSS = (state) => {
+const updateRSS = (state, links) => {
   const promises = links.map(loadRSS);
   Promise.all(promises)
     .then((results) => {
@@ -17,12 +15,13 @@ const updateRSS = (state) => {
       }
     })
     .finally(() => {
-      setTimeout(() => updateRSS(state), 5000);
+      setTimeout(() => updateRSS(state, links), 5000);
     });
 };
 
 export default (link, state) => {
+  const links = [];
   links.push(link);
 
-  setTimeout(() => updateRSS(state), 5000);
+  setTimeout(() => updateRSS(state, links), 5000);
 };

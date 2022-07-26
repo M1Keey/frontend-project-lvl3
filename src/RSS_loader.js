@@ -9,11 +9,11 @@ const allOrigin = (url) => {
   return result.toString();
 };
 const addPostId = (data) => {
-  const postsWithIs = data.posts.map((post) => ({
+  const postsWithId = data.posts.map((post) => ({
     id: _.uniqueId(),
     ...post,
   }));
-  return { ...data, posts: postsWithIs };
+  return { ...data, posts: postsWithId };
 };
 
 const loadRSS = (link) => axios.get(allOrigin(link))
