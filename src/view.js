@@ -48,7 +48,11 @@ const renderPosts = (state, posts, viewPostHandler, i18nextInstance) => {
     postViewButton.setAttribute('type', 'button');
     postViewButton.classList.add('btn', 'btn-primary', 'btn-sm');
 
-    postTitle.addEventListener('click', () => viewPostHandler(post, state));
+    postTitle.addEventListener('click', () => {
+      if (!state.viewedIds.includes(post.id)) {
+        state.viewedIds.push(post.id);
+      }
+    });
 
     postViewButton.addEventListener('click', () => viewPostHandler(post, state));
 
