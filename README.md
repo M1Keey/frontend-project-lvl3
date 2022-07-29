@@ -29,4 +29,4 @@ RSS Reader - is a service for aggregating RSS feeds, with the help of which it i
 3. Get a list of current articles & news
 4. Enjoy !
 
-[Click here to try it(Vercel)](https://frontend-project-lvl3-seven-topaz.vercel.app/)
+[Click here to try it (Vercel)](https://frontend-project-lvl3-seven-topaz.vercel.app/)
