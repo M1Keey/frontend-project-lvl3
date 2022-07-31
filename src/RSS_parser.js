@@ -1,8 +1,8 @@
 export default (feedLink, data) => {
   try {
     const parser = new DOMParser();
-    const parcedData = parser.parseFromString(data, 'text/xml');
-    const parseError = parcedData.querySelector('parsererror');
+    const parsedData = parser.parseFromString(data, 'text/xml');
+    const parseError = parsedData.querySelector('parsererror');
     if (parseError) {
       throw new Error(parseError.textContent);
     }
@@ -11,10 +11,10 @@ export default (feedLink, data) => {
       posts: [],
     };
 
-    const feedTitle = parcedData.querySelector('title').textContent;
-    const feedDescription = parcedData.querySelector('description').textContent;
+    const feedTitle = parsedData.querySelector('title').textContent;
+    const feedDescription = parsedData.querySelector('description').textContent;
 
-    const posts = parcedData.querySelectorAll('item');
+    const posts = parsedData.querySelectorAll('item');
     posts.forEach((post) => {
       const postTitle = post.querySelector('title').textContent;
       const postDescription = post.querySelector('description').textContent;
